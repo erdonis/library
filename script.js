@@ -93,6 +93,17 @@ const submitBtn = document.querySelector("#submitBtn");
 submitBtn.addEventListener("click", submitForm)
 
 function submitForm(){
+    $('#form').submit(function() {
+        if (!attributeSupported("required") || ($.browser.safari)) {
+         $("#form [required]").each(function(index) {
+          if (!$(this).val()) {
+           alert("Please fill all required fields.");
+           return false;
+          }
+         });
+        }
+        return false; 
+      });
     if (inputTitle.value && inputAuthor.value && inputPages.value){
         let newBook = new Book(inputTitle.value, inputAuthor.value, inputPages.value, readInput.checked);
         addBookToLibrary(newBook);
